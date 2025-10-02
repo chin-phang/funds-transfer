@@ -1,0 +1,35 @@
+logging:
+  level:
+    root: INFO
+    com.widetech: TRACE
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: funds-transfer
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:15432/funds_transfer?options=-c%20TimeZone=UTC
+    username: postgres
+    password: password
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+  liquibase:
+    changeLog: classpath:db/db.changelog-master.yml
+
+security:
+  jwt:
+    secretKey: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+    expirationMs: 86400000

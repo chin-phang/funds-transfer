@@ -1,0 +1,11 @@
+name: wide-tech
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=funds_transfer
+    ports:
+      - 15432:5432
