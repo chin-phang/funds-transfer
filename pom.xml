@@ -34,6 +34,7 @@
     <lombok.version>1.18.42</lombok.version>
     <lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
     <jwt.version>0.13.0</jwt.version>
+    <springdoc-openapi-maven-plugin.version>1.5</springdoc-openapi-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -104,6 +105,11 @@
       <version>${jwt.version}</version>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.8.13</version>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -163,6 +169,19 @@
 					</excludes>
 				</configuration>
 			</plugin>
+      <plugin>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-maven-plugin</artifactId>
+        <version>${springdoc-openapi-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 		</plugins>
 	</build>
 

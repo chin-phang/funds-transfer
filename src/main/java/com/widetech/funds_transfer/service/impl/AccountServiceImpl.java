@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new AccountNotFoundException(userId));
 
-    List<Account> accounts = accountRepository.findAllByUserId(user.getId(), null);
+    List<Account> accounts = accountRepository.findAllByUserId(user.getId());
 
     return accounts.stream().map(accountInfoMapper::toDto).toList();
   }

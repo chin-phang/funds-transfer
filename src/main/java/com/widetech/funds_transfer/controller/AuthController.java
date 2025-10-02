@@ -2,7 +2,7 @@ package com.widetech.funds_transfer.controller;
 
 import com.widetech.funds_transfer.dto.LoginRequest;
 import com.widetech.funds_transfer.dto.LoginResponse;
-import com.widetech.funds_transfer.service.impl.AuthServiceImpl;
+import com.widetech.funds_transfer.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-  private final AuthServiceImpl authServiceImpl;
+  private final AuthService authService;
 
   @PostMapping("/login")
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginReq) {
-    return ResponseEntity.ok(authServiceImpl.authenticate(loginReq));
+    return ResponseEntity.ok(authService.authenticate(loginReq));
   }
 
-  @PostMapping("/logout")
-  public void logout() {
-    authServiceImpl.logout();
-  }
 }
