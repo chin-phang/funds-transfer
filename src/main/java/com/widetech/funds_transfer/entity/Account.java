@@ -22,15 +22,15 @@ public class Account extends Auditable {
   @Id
   private String accountNo;
 
-  @Column(name = "account_type", nullable = false)
+  @Column(name = "account_type", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)
   private AccountType type;
 
-  @Column(name = "account_status", nullable = false)
+  @Column(name = "account_status", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)
   private AccountStatus status;
 
-  @Column(name = "currency", nullable = false)
+  @Column(name = "currency", length = 3, nullable = false)
   @Enumerated(EnumType.STRING)
   private Currency currency;
 

@@ -2,7 +2,7 @@
 
 ### Start PostgreSQL with Docker
 ```
-# src/main/docker/
+# src\main\docker\
 docker-compose -f .\docker-compose.yml up -d
 ```
 
@@ -20,4 +20,10 @@ java -jar funds-transfer-0.0.1-SNAPSHOT.jar
 admin / admin
 customer1 / test123
 customer2 / test123
+```
+
+### Import Postman Collection
+```
+# project root
+FundsTransfer.postman_collection.json
 ```

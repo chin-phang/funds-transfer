@@ -73,14 +73,14 @@ values
 ('198745635478', 3, 'SAVINGS', 'ACTIVE', 'IDR', 210000000, 'system', current_timestamp),
 ('176549876354', 3, 'CURRENT', 'ACTIVE', 'USD', 1250000, 'system', current_timestamp);
 
-create table transaction (
+create table transfer (
     ref_no varchar(20) not null,
-    transaction_date timestamptz not null,
+    transfer_date timestamptz not null,
     transfer_type varchar(20) not null,
     from_account varchar(20) not null,
     to_account varchar(20) not null,
     currency varchar(3) not null,
-    transfer_amount decimal(20,4) not null,
+    transfer_amount bigint not null,
     transfer_status varchar(20) not null,
     description text not null,
     created_by varchar(100) not null,

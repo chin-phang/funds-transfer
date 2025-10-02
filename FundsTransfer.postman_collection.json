@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "e31649fb-8ef0-4d93-b4d2-9635a2fd6370",
+		"name": "FundsTransfer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40016599"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"customer1\",\r\n    \"password\": \"test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get accounts by user id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTkzOTc2OTQsImV4cCI6MTc1OTQ4NDA5NH0.7YmxEKl5sWVfQfL_VZzCXBErNwI6JCBcyKNfWaenO8JUiXyS8_JdMyF1_ayxBMkx",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/accounts/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"accounts",
+						"2"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get transfers by account no",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTkzOTc2OTQsImV4cCI6MTc1OTQ4NDA5NH0.7YmxEKl5sWVfQfL_VZzCXBErNwI6JCBcyKNfWaenO8JUiXyS8_JdMyF1_ayxBMkx",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/tranfers?account=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tranfers"
+					],
+					"query": [
+						{
+							"key": "account",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTkzOTc2OTQsImV4cCI6MTc1OTQ4NDA5NH0.7YmxEKl5sWVfQfL_VZzCXBErNwI6JCBcyKNfWaenO8JUiXyS8_JdMyF1_ayxBMkx",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sourceAccount\": \"\", \r\n    \"destinationAccount\": \"\", \r\n    \"amount\": 0, \r\n    \"currency\": \"IDR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/transfers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transfers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

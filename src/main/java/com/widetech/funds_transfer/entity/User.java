@@ -42,7 +42,7 @@ public class User extends Auditable implements UserDetails {
   @Column(name = "password", length = 100, nullable = false)
   private String password;
 
-  @Column(name = "user_status", nullable = false)
+  @Column(name = "user_status", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)
   private UserStatus status;
 

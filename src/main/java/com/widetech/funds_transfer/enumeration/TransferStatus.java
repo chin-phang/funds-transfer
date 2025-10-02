@@ -5,24 +5,34 @@ import lombok.Getter;
 @Getter
 public enum TransferStatus {
 
-  ACTIVE {
+  PENDING {
     @Override
-    public boolean isActive() {
+    public boolean isPending() {
       return true;
     }
   },
-  INACTIVE {
+  SUCCESS {
     @Override
-    public boolean isInactive() {
+    public boolean isSuccess() {
+      return true;
+    }
+  },
+  FAILED {
+    @Override
+    public boolean isFailed() {
       return true;
     }
   };
 
-  public boolean isActive() {
+  public boolean isPending() {
     return false;
   }
 
-  public boolean isInactive() {
+  public boolean isSuccess() {
+    return false;
+  }
+
+  public boolean isFailed() {
     return false;
   }
 }
