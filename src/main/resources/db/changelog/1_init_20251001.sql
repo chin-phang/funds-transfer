@@ -71,7 +71,7 @@ values
 ('159786353982', 2, 'SAVINGS', 'ACTIVE', 'IDR', 420000000, 'system', current_timestamp),
 ('145698756324', 2, 'CURRENT', 'ACTIVE', 'USD', 2500000, 'system', current_timestamp),
 ('198745635478', 3, 'SAVINGS', 'ACTIVE', 'IDR', 210000000, 'system', current_timestamp),
-('176549876354', 3, 'CURRENT', 'ACTIVE', 'USD', 1250000, 'system', current_timestamp);
+('176549876354', 3, 'CURRENT', 'ACTIVE', 'USD', 1250095, 'system', current_timestamp);
 
 create table transfer (
     ref_no varchar(20) not null,

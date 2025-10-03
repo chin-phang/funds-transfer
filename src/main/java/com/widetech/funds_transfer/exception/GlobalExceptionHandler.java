@@ -12,6 +12,17 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+  @ExceptionHandler(UserNotLoginException.class)
+  public ResponseEntity<ApiErrorResponse> handleAccountNotFound(UserNotLoginException ex) {
+    ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+        .error(HttpStatus.FORBIDDEN.getReasonPhrase())
+        .message(ex.getMessage())
+        .timestamp(LocalDateTime.now())
+        .build();
+
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+  }
+
   @ExceptionHandler(AccountNotFoundException.class)
   public ResponseEntity<ApiErrorResponse> handleAccountNotFound(AccountNotFoundException ex) {
     ApiErrorResponse errorResponse = ApiErrorResponse.builder()

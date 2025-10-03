@@ -19,23 +19,6 @@ public class AccountInfo {
 
   private String currency;
 
-  @Setter(AccessLevel.NONE)
   private BigDecimal balance;
 
-  public void setBalance(BigDecimal balance) {
-    if (balance == null) {
-      this.balance = null;
-      return;
-    }
-
-    this.balance = balance.setScale(Currency.valueOf(this.currency).getScale(), RoundingMode.HALF_UP);
-  }
-
-  private int getCurrencyScale(String currency) {
-    if (currency == null) {
-      return 2;
-    }
-
-    return Currency.valueOf(currency).getScale();
-  }
 }
