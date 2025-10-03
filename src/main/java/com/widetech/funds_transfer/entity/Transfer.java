@@ -2,6 +2,7 @@ package com.widetech.funds_transfer.entity;
 
 import com.widetech.funds_transfer.enumeration.Currency;
 import com.widetech.funds_transfer.enumeration.TransferStatus;
+import com.widetech.funds_transfer.enumeration.TransferType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,8 @@ public class Transfer extends Auditable {
   private Instant date;
 
   @Column(name = "transfer_type", nullable = false)
-  private String type;
+  @Enumerated(EnumType.STRING)
+  private TransferType type;
 
   @Column(name = "from_account", length = 20, nullable = false)
   private String fromAccount;

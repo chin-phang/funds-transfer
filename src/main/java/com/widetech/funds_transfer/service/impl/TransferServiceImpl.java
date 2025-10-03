@@ -4,6 +4,7 @@ import com.widetech.funds_transfer.dto.SearchTransferRequest;
 import com.widetech.funds_transfer.dto.TransferInfo;
 import com.widetech.funds_transfer.entity.Transfer;
 import com.widetech.funds_transfer.enumeration.Currency;
+import com.widetech.funds_transfer.mapper.TransferInfoMapper;
 import com.widetech.funds_transfer.repository.TransferRepository;
 import com.widetech.funds_transfer.service.AccountService;
 import com.widetech.funds_transfer.service.TransferService;
@@ -37,6 +38,8 @@ public class TransferServiceImpl implements TransferService {
 
   private final TransferRepository transferRepository;
 
+  private final TransferInfoMapper transferInfoMapper;
+
   private final AccountService accountService;
 
   private static final BigDecimal DAILY_LIMIT_IDR = new BigDecimal("50000000");
@@ -50,19 +53,20 @@ public class TransferServiceImpl implements TransferService {
     List<TransferInfo> result = new ArrayList<>();
 
     if (CollectionUtils.isNotEmpty(transferPage.getContent())) {
-      transferPage.getContent().forEach(transfer -> {
+      for (Transfer transfer: transferPage.getContent()) {
         TransferInfo transferInfo = TransferInfo.builder()
             .refNo(transfer.getRefNo())
             .sourceAccount(transfer.getFromAccount())
             .destinationAccount(transfer.getToAccount())
-            .transferAmount(BigDecimal.valueOf(transfer.getAmount(), getCurrencyScale(searchTransferReq.getCurrency())))
-            .currency(transfer.getCurrency().getName())
+            .transferType(transfer.getType().name())
+            .transferAmount(BigDecimal.valueOf(transfer.getAmount(), getCurrencyScale(transfer.getCurrency().getCode())))
+            .currency(transfer.getCurrency().getCode())
             .transferStatus(transfer.getStatus().name())
             .transferDate(transfer.getDate())
             .build();
 
         result.add(transferInfo);
-      });
+      }
     }
 
     return new PageImpl<>(result, pageable, transferPage.getTotalElements());
@@ -128,7 +132,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     if (StringUtils.isNotBlank(searchTransferReq.getAccountNumber())) {
-      specs = specs.or(fromAccountEqual(searchTransferReq.getAccountNumber().trim()));
+      specs = specs.and(fromAccountEqual(searchTransferReq.getAccountNumber().trim()));
       specs = specs.or(toAccountEqual(searchTransferReq.getAccountNumber().trim()));
     }
 

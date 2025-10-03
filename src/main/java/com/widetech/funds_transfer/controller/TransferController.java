@@ -8,6 +8,7 @@ import com.widetech.funds_transfer.service.TransferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class TransferController {
     Page<TransferInfo> result = transferService.findAll(searchTransferReq, PageRequest.of(pageNo, pageSize));
 
     ApiResponse response = ApiResponse.builder()
-        .data(result)
+        .data(new PagedModel<>(result))
         .build();
 
     return ResponseEntity.ok(response);

@@ -109,12 +109,12 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTk0NjQ0MjAsImV4cCI6MTc1OTU1MDgyMH0.KJj39G7v3kuqv8VdAjh7jmmFn2C2T427EoB56tRCLZ_BmhiQHT-UDPY1-uVvm-4g",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTk0OTg1OTIsImV4cCI6MTc1OTU4NDk5Mn0.l43416ddw-qQGGK1km5cNSmfXX1p8JGWivD6bsVutCwJyPvhWbky_7GYbIajh5Af",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "localhost:8080/api/transfers?accountNumber=159786353982&pageNo=1&pageSize=10",
+					"raw": "localhost:8080/api/transfers?accountNumber=159786353982&pageNo=0&pageSize=10",
 					"host": [
 						"localhost"
 					],
@@ -130,7 +130,7 @@
 						},
 						{
 							"key": "pageNo",
-							"value": "1"
+							"value": "0"
 						},
 						{
 							"key": "pageSize",
