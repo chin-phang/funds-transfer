@@ -26,8 +26,9 @@ public class TransferController {
   }
 
   @GetMapping
-  public ResponseEntity<ApiResponse> findAll(@RequestParam SearchTransferRequest searchTransferReq) {
-    Page<TransferInfo> result = transferService.findAll(searchTransferReq, PageRequest.of(searchTransferReq.getPageNo(), searchTransferReq.getPageSize()));
+  public ResponseEntity<ApiResponse> findAll(@ModelAttribute SearchTransferRequest searchTransferReq,
+      @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+    Page<TransferInfo> result = transferService.findAll(searchTransferReq, PageRequest.of(pageNo, pageSize));
 
     ApiResponse response = ApiResponse.builder()
         .data(result)

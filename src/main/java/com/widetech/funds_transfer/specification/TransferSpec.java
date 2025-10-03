@@ -2,6 +2,9 @@ package com.widetech.funds_transfer.specification;
 
 import com.widetech.funds_transfer.entity.Transfer;
 import com.widetech.funds_transfer.entity.Transfer_;
+import com.widetech.funds_transfer.enumeration.Currency;
+import com.widetech.funds_transfer.enumeration.TransferStatus;
+import com.widetech.funds_transfer.enumeration.TransferType;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.Instant;
@@ -21,15 +24,15 @@ public class TransferSpec {
   }
 
   public static Specification<Transfer> transferStatusEqual(String transferStatus) {
-    return (root, query, cb) -> cb.equal(root.get(Transfer_.status.getName()), transferStatus);
+    return (root, query, cb) -> cb.equal(root.get(Transfer_.status), TransferStatus.valueOf(transferStatus));
   }
 
   public static Specification<Transfer> transferTypeEqual(String transferType) {
-    return (root, query, cb) -> cb.equal(root.get(Transfer_.type.getName()), transferType);
+    return (root, query, cb) -> cb.equal(root.get(Transfer_.type), TransferType.valueOf(transferType));
   }
 
   public static Specification<Transfer> currencyEqual(String currency) {
-    return (root, query, cb) -> cb.equal(root.get(Transfer_.currency.getName()), currency);
+    return (root, query, cb) -> cb.equal(root.get(Transfer_.currency), Currency.valueOf(currency));
   }
 
   public static Specification<Transfer> transferAmountGreaterThanEqual(Long amountMin) {

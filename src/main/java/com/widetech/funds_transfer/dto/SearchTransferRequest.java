@@ -23,8 +23,4 @@ public class SearchTransferRequest {
   private BigDecimal amountMax;
 
   private LocalDate transferDate;
-
-  private int pageNo;
-
-  private int pageSize;
 }

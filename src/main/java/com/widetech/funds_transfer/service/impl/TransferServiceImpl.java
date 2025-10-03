@@ -56,7 +56,7 @@ public class TransferServiceImpl implements TransferService {
             .sourceAccount(transfer.getFromAccount())
             .destinationAccount(transfer.getToAccount())
             .transferAmount(BigDecimal.valueOf(transfer.getAmount(), getCurrencyScale(searchTransferReq.getCurrency())))
-            .currency(transfer.getCurrency().name())
+            .currency(transfer.getCurrency().getName())
             .transferStatus(transfer.getStatus().name())
             .transferDate(transfer.getDate())
             .build();
