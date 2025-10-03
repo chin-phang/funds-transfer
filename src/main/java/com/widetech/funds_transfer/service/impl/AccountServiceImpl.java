@@ -46,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     if (!loginUser.getId().equals(userId)) {
-      log.error("User {} not allowed to view with userId {}", loginUser.getUsername(), userId);
+      log.error("User {} not allowed to view userId {}", loginUser.getUsername(), userId);
       throw new IllegalArgumentException("Invalid user ID.");
     }
 

@@ -1,20 +1,31 @@
 package com.widetech.funds_transfer.service.impl;
 
-import com.widetech.funds_transfer.dto.TransferRequest;
+import com.widetech.funds_transfer.dto.SearchTransferRequest;
+import com.widetech.funds_transfer.dto.TransferInfo;
 import com.widetech.funds_transfer.entity.Transfer;
-import com.widetech.funds_transfer.enumeration.TransferStatus;
+import com.widetech.funds_transfer.enumeration.Currency;
 import com.widetech.funds_transfer.repository.TransferRepository;
 import com.widetech.funds_transfer.service.AccountService;
 import com.widetech.funds_transfer.service.TransferService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.widetech.funds_transfer.specification.TransferSpec.*;
 
 @Service
 @RequiredArgsConstructor
@@ -22,11 +33,40 @@ public class TransferServiceImpl implements TransferService {
 
   private static final Logger log = LoggerFactory.getLogger(TransferServiceImpl.class);
 
+  private static final ZoneId ZONE_ID = ZoneId.of("Asia/Kuala_Lumpur");
+
   private final TransferRepository transferRepository;
 
   private final AccountService accountService;
 
   private static final BigDecimal DAILY_LIMIT_IDR = new BigDecimal("50000000");
+
+  @Override
+  public Page<TransferInfo> findAll(SearchTransferRequest searchTransferReq, Pageable pageable) {
+    Specification<Transfer> transferSpec = createTransferSpec(searchTransferReq);
+
+    Page<Transfer> transferPage = transferRepository.findAll(transferSpec, pageable);
+
+    List<TransferInfo> result = new ArrayList<>();
+
+    if (CollectionUtils.isNotEmpty(transferPage.getContent())) {
+      transferPage.getContent().forEach(transfer -> {
+        TransferInfo transferInfo = TransferInfo.builder()
+            .refNo(transfer.getRefNo())
+            .sourceAccount(transfer.getFromAccount())
+            .destinationAccount(transfer.getToAccount())
+            .transferAmount(BigDecimal.valueOf(transfer.getAmount(), getCurrencyScale(searchTransferReq.getCurrency())))
+            .currency(transfer.getCurrency().name())
+            .transferStatus(transfer.getStatus().name())
+            .transferDate(transfer.getDate())
+            .build();
+
+        result.add(transferInfo);
+      });
+    }
+
+    return new PageImpl<>(result, pageable, transferPage.getTotalElements());
+  }
 
   /*@Transactional
   public Transfer processTransfer(TransferRequest request) {
@@ -79,5 +119,59 @@ public class TransferServiceImpl implements TransferService {
 
     return transferRepository.save(transfer);
   }*/
+
+  private Specification<Transfer> createTransferSpec(SearchTransferRequest searchTransferReq) {
+    Specification<Transfer> specs = (root, query, cb) -> cb.conjunction();
+
+    if (StringUtils.isNotBlank(searchTransferReq.getRefNo())) {
+      specs = specs.and(refNoEqual(searchTransferReq.getRefNo().trim()));
+    }
+
+    if (StringUtils.isNotBlank(searchTransferReq.getAccountNumber())) {
+      specs = specs.or(fromAccountEqual(searchTransferReq.getAccountNumber().trim()));
+      specs = specs.or(toAccountEqual(searchTransferReq.getAccountNumber().trim()));
+    }
+
+    if (StringUtils.isNotBlank(searchTransferReq.getTransferStatus())) {
+      specs = specs.and(transferStatusEqual(searchTransferReq.getTransferStatus().trim()));
+    }
+
+    if (StringUtils.isNotBlank(searchTransferReq.getTransferType())) {
+      specs = specs.and(transferTypeEqual(searchTransferReq.getTransferType().trim()));
+    }
+
+    if (StringUtils.isNotBlank(searchTransferReq.getCurrency())) {
+      specs = specs.and(currencyEqual(searchTransferReq.getCurrency().trim()));
+    }
+
+    if (searchTransferReq.getAmountMin() != null) {
+      int scale = searchTransferReq.getCurrency() != null ? getCurrencyScale(searchTransferReq.getCurrency()) : 2;
+      Long longAmtMin = searchTransferReq.getAmountMin().movePointRight(scale).longValue();
+      specs = specs.and(transferAmountGreaterThanEqual(longAmtMin));
+    }
+
+    if (searchTransferReq.getAmountMax() != null) {
+      int scale = searchTransferReq.getCurrency() != null ? getCurrencyScale(searchTransferReq.getCurrency()) : 2;
+      Long longAmtMax = searchTransferReq.getAmountMax().movePointRight(scale).longValue();
+      specs = specs.and(transferAmountGreaterThanEqual(longAmtMax));
+    }
+
+    if (searchTransferReq.getTransferDate() != null) {
+      Instant transferDateFrom = searchTransferReq.getTransferDate()
+          .atStartOfDay(ZONE_ID)
+          .toInstant();
+      Instant transferDateTo = searchTransferReq.getTransferDate()
+          .atTime(LocalTime.MAX)
+          .atZone(ZONE_ID)
+          .toInstant();
+      specs = specs.and(transferDateBetween(transferDateFrom, transferDateTo));
+    }
+
+    return specs;
+  }
+
+  private int getCurrencyScale(String currency) {
+    return Currency.valueOf(currency).getScale();
+  }
 }
 

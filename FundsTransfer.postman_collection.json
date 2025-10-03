@@ -42,7 +42,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTkzOTc2OTQsImV4cCI6MTc1OTQ4NDA5NH0.7YmxEKl5sWVfQfL_VZzCXBErNwI6JCBcyKNfWaenO8JUiXyS8_JdMyF1_ayxBMkx",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTk0NjQ0MjAsImV4cCI6MTc1OTU1MDgyMH0.KJj39G7v3kuqv8VdAjh7jmmFn2C2T427EoB56tRCLZ_BmhiQHT-UDPY1-uVvm-4g",
 						"type": "text"
 					}
 				],
@@ -69,44 +69,13 @@
 			"response": []
 		},
 		{
-			"name": "get transfers by account no",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTkzOTc2OTQsImV4cCI6MTc1OTQ4NDA5NH0.7YmxEKl5sWVfQfL_VZzCXBErNwI6JCBcyKNfWaenO8JUiXyS8_JdMyF1_ayxBMkx",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "localhost:8080/api/tranfers?account=",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"tranfers"
-					],
-					"query": [
-						{
-							"key": "account",
-							"value": ""
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "transfer",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTkzOTc2OTQsImV4cCI6MTc1OTQ4NDA5NH0.7YmxEKl5sWVfQfL_VZzCXBErNwI6JCBcyKNfWaenO8JUiXyS8_JdMyF1_ayxBMkx",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTk0NjQ0MjAsImV4cCI6MTc1OTU1MDgyMH0.KJj39G7v3kuqv8VdAjh7jmmFn2C2T427EoB56tRCLZ_BmhiQHT-UDPY1-uVvm-4g",
 						"type": "text"
 					}
 				],
@@ -128,6 +97,45 @@
 					"path": [
 						"api",
 						"transfers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get transfers by account no",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjdXN0b21lcjEiLCJpYXQiOjE3NTk0NjQ0MjAsImV4cCI6MTc1OTU1MDgyMH0.KJj39G7v3kuqv8VdAjh7jmmFn2C2T427EoB56tRCLZ_BmhiQHT-UDPY1-uVvm-4g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/transfers?accountNumber=159786353982&pageNo=1&pageSize=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transfers"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "159786353982"
+						},
+						{
+							"key": "pageNo",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
 					]
 				}
 			},

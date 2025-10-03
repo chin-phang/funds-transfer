@@ -34,7 +34,7 @@ public class Transfer extends Auditable {
   private String toAccount;
 
   @Column(name = "transfer_amount", nullable = false)
-  private String amount;
+  private Long amount;
 
   @Column(name = "transfer_status", length = 20, nullable = false)
   @Enumerated(EnumType.STRING)

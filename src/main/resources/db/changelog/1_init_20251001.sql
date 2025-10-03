@@ -70,8 +70,8 @@ insert into account (account_no, user_id, account_type, account_status, currency
 values
 ('159786353982', 2, 'SAVINGS', 'ACTIVE', 'IDR', 420000000, 'system', current_timestamp),
 ('145698756324', 2, 'CURRENT', 'ACTIVE', 'USD', 2500000, 'system', current_timestamp),
-('198745635478', 3, 'SAVINGS', 'ACTIVE', 'IDR', 210000000, 'system', current_timestamp),
-('176549876354', 3, 'CURRENT', 'ACTIVE', 'USD', 1250095, 'system', current_timestamp);
+('198745635478', 3, 'CURRENT', 'ACTIVE', 'IDR', 210000000, 'system', current_timestamp),
+('176549876354', 3, 'SAVINGS', 'ACTIVE', 'USD', 1250095, 'system', current_timestamp);
 
 create table transfer (
     ref_no varchar(20) not null,
@@ -89,3 +89,17 @@ create table transfer (
     last_modified_at timestamptz default null,
     primary key (ref_no)
 );
+
+insert into transfer (ref_no, transfer_date, transfer_type, from_account, to_account, currency, transfer_amount, transfer_status, description, created_by, created_at)
+values
+('1234567890', current_timestamp, 'FUNDS_TRANSFER', '159786353982', '198745635478', 'IDR', 1000000, 'SUCCESS', 'Deposit', 'system', current_timestamp),
+('1234567891', current_timestamp, 'FUNDS_TRANSFER', '159786353982', '198745635478', 'IDR', 1000000, 'SUCCESS', 'Deposit', 'system', current_timestamp),
+('1234567892', current_timestamp, 'FUNDS_TRANSFER', '159786353982', '198745635478', 'IDR', 1000000, 'SUCCESS', 'Deposit', 'system', current_timestamp),
+('1234567893', current_timestamp, 'FUNDS_TRANSFER', '159786353982', '198745635478', 'IDR', 1000000, 'SUCCESS', 'Deposit', 'system', current_timestamp),
+('1234567894', current_timestamp, 'FUNDS_TRANSFER', '159786353982', '198745635478', 'IDR', 1000000, 'SUCCESS', 'Deposit', 'system', current_timestamp),
+('1234567895', current_timestamp, 'FUNDS_TRANSFER', '145698756324', '198745635478', 'IDR', 1000000, 'SUCCESS', 'Deposit', 'system', current_timestamp),
+('1234567896', current_timestamp, 'FUNDS_TRANSFER', '145698756324', '176549876354', 'USD', 100000, 'SUCCESS', 'Payment', 'system', current_timestamp),
+('1234567897', current_timestamp, 'FUNDS_TRANSFER', '145698756324', '176549876354', 'USD', 100000, 'SUCCESS', 'Payment', 'system', current_timestamp),
+('1234567898', current_timestamp, 'FUNDS_TRANSFER', '145698756324', '176549876354', 'USD', 100000, 'SUCCESS', 'Payment', 'system', current_timestamp),
+('1234567899', current_timestamp, 'FUNDS_TRANSFER', '145698756324', '176549876354', 'USD', 100000, 'SUCCESS', 'Payment', 'system', current_timestamp),
+('1234567900', current_timestamp, 'FUNDS_TRANSFER', '145698756324', '176549876354', 'USD', 100000, 'SUCCESS', 'Payment', 'system', current_timestamp);
